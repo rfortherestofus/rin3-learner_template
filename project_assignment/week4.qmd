@@ -1,0 +1,46 @@
+---
+title: "Citations of women artists in an Art History book"
+format: html
+---
+
+```{r load packages and data}
+#| echo: false
+#| eval: false
+library(tidyverse)
+raw_data_artists <- read_csv("data-raw/artists.csv")
+```
+
+## Introduction
+
+The books History of Art and Art Through the Ages are two of the most widely used art history textbooks in the United States. They are used in college courses and are considered to be authoritative sources on the history of art. However, the citation of women artists is still very low in these books.
+
+## Artistic representation by ethnicity
+
+When exploring artists' ethnicity, we found that the majority of artists cited in the books are white. This is not surprising, as the art world has historically been dominated by white artists. However, it is important to note that there are many talented artists of color who are not being represented in these books.
+
+Here's a data visualization:
+
+```{r}
+#| echo: false
+female_artists_ethnicity <- 
+  raw_data_artists |> 
+  filter(artist_gender == "Female") |>
+  group_by(artist_ethnicity, year) |>
+  summarise(n = n()) 
+
+# Plot the distribution of ethnicities
+
+ggplot(female_artists_ethnicity,        # Data
+       aes(x = as.factor(year),         # X-axis
+           y = n,                       # Y-axis
+           group = artist_ethnicity,    # Grouping
+           color = artist_ethnicity)) + # Color
+  geom_line() +                         # Make it a line plot
+  theme_minimal() +                     # Theme
+  labs(title = "Distribution of ethnicities of female artists cited on the book 'Art Through the Ages' throughout the years",            # Title
+       y = NULL,                        # Y-axis label
+       x = NULL,                        # X-axis label
+       color = "Artists' ethnicity")    # Legend title
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
