@@ -1,1 +1,1 @@
-This is a folder for you to store your notes - if you're a note-taker!
+Use this folder to store data files that you use in the exercises.
